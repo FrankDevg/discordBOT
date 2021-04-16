@@ -1,6 +1,7 @@
 const {Client, MessageEmbed, MessageAttachment  } = require('discord.js');
 const client = new Client();
 const embed = new MessageEmbed()
+const util =require('./util.js').getConfig()[1];
 require('dotenv').config();
 var url = new String();
 client.on('ready',()=>{
