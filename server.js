@@ -7,9 +7,17 @@ var url = new String();
 client.on('ready',()=>{
     console.log(`Bot is ready! as ${client.user.tag}`);
 });
-//corregir error avatar!!
+
 client.on('message',message=>{    
-    console.log(message.channel.name);   
+    console.log(message.channel.name);  
+    if(message.author.bot)return;
+    let prefix = config.prefix;
+    let args;
+    if(message.content.startsWith("ping")){
+        if(!args) return message.channel.send('Ingrese un mensaje');
+        util.getSend(message, 'pong con el prefix del bot:' +prefix);
+    }
+
     switch (message.content) {
         case '!meme1':
             url ='831187746986000424/831187760425074708/images.png';  
