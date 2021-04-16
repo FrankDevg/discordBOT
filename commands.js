@@ -4,8 +4,8 @@ const config = util.getConfig()[1];
 
 class Command {
     constructor(commandInfo) {
-        this.name = commandInfo.name,
-            this.args = commandInfo.args;
+        this.name = commandInfo.name;
+        this.args = commandInfo.args;
         this.category = commandInfo.category;
         this.alises = commandInfo.alises;
         this.permLvl = commandInfo.permLvl;
@@ -92,4 +92,55 @@ class Argument {
         return valid;
     }
 
+}
+class Category {
+    constructor(categoryInfo) {
+        this.name = categoryInfo.name;
+        this.priority = categoryInfo.priority;
+        this.commands = new Map();
+    }
+    addCommand(command) {
+        this.commands.set(command.name, command.priority);
+    }
+}
+module.export = {
+    Command: Command,
+    Argument: Argument,
+    Category: Category,
+    namesAliases:[],
+    categories: new Map(),
+    registerCategories:function(categories){
+        for(category of categories){
+            var category = Category(category)
+            this.categories.set(category.name.category)
+        }
+    },
+    loadFile:function(){
+     return require(path)   
+    },
+    registerCommands:function(){
+        var commands = fs.readdirSync(`./commands/`);
+        for(var module  of commands){
+            var files = fs.readdirSync(`/commands/${module}`);
+            for(var file of files){
+                if(fs.statSync(`./commands/${module}/${file}`).isFile()){
+                  var keys =  this.loadFile(`./commands/${module}/${file}`)
+                  if(typeof keys != 'object' ){
+                      keys={
+                          keys
+                      }
+                  }
+                  for(var key of keys){
+                      var command = new keys[key]();
+                      if(!this.categories.has(module)){
+                          this.categories([module])
+                      }
+                      this.commands.set(command.name,command )
+                      this.namesAliases.push(command.name,...command.aliases)
+                      this.categories.get(module).addCommand(command)
+                  }
+                }
+            }
+        }
+    }
 }
