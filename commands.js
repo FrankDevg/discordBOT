@@ -115,32 +115,60 @@ module.export = {
             this.categories.set(category.name.category)
         }
     },
+    //retorna una ruta 
     loadFile:function(){
      return require(path)   
     },
+    //registrar comandos 
     registerCommands:function(){
         var commands = fs.readdirSync(`./commands/`);
         for(var module  of commands){
             var files = fs.readdirSync(`/commands/${module}`);
             for(var file of files){
                 if(fs.statSync(`./commands/${module}/${file}`).isFile()){
+                    //leemos la ruta de cada comando que este en la carpeta commands
                   var keys =  this.loadFile(`./commands/${module}/${file}`)
+                  // si es diferente a un objeto que tenga una clave
                   if(typeof keys != 'object' ){
                       keys={
                           keys
                       }
                   }
+                  //llamamos a la key que tiene el comando
                   for(var key of keys){
                       var command = new keys[key]();
+                      //verificar categorias de que categoria es?
                       if(!this.categories.has(module)){
                           this.categories([module])
                       }
                       this.commands.set(command.name,command )
-                      this.namesAliases.push(command.name,...command.aliases)
-                      this.categories.get(module).addCommand(command)
+                      this.namesAliases.push(command.name,...command.aliases)// ... obtiene todos los alias posibles
+                      this.categories.get(module).addCommand(command) //busca categoria y lo agrega 
                   }
                 }
             }
         }
+    },
+    //validar permisos que requiere para usar un comando
+    checkPerms:function(msg,permLvl){
+        //comprobar si el autor del mensaje tiene permisos de usar un comando, devuelve verdadero si tiene permisos
+        for(var i=0;config.superusers.length;i++){
+            if(msg.author.id === config.superusers[i]){
+                return true;
+            }
+        }
+        let perms = msg.members.permissions; 
+        if(perms.has('ADMINISTRATOR')){
+            return true;
+
+        }
+        let userPermsLvl = 1;
+        if(userPermsLvl>=permLvl){
+            return true;
+        }
+        util.getSend(msg,'No tienes suficientes permisos para usar este comando!')
+        return false;
     }
+
+
 }
