@@ -1,7 +1,8 @@
 const {Client, MessageEmbed, MessageAttachment  } = require('discord.js');
 const client = new Client();
 const embed = new MessageEmbed()
-const util =require('./util.js').getConfig()[1];
+const config = require('./util.js').getConfig()[1];
+const util =require('./util.js');
 require('dotenv').config();
 var url = new String();
 client.on('ready',()=>{
@@ -14,8 +15,8 @@ client.on('message',message=>{
     let prefix = config.prefix;
     let args;
     if(message.content.startsWith("ping")){
-        if(!args) return message.channel.send('Ingrese un mensaje');
-        util.getSend(message, 'pong con el prefix del bot:' +prefix);
+        // if(!args) return message.channel.send('Ingrese un mensaje'); check args ya con funcion
+        util.getSend(message, 'pong con el prefix del bot:' +prefix + ''+message.author.id);
     }
 
     switch (message.content) {
