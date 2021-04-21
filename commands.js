@@ -139,11 +139,11 @@ module.export = {
                       var command = new keys[key]();
                       //verificar categorias de que categoria es?
                       if(!this.categories.has(module)){
-                          this.categories([module])
+                          this.categories([module]);
                       }
-                      this.commands.set(command.name,command )
-                      this.namesAliases.push(command.name,...command.aliases)// ... obtiene todos los alias posibles
-                      this.categories.get(module).addCommand(command) //busca categoria y lo agrega 
+                      this.commands.set(command.name,command );
+                      this.namesAliases.push(command.name,...command.aliases);// ... obtiene todos los alias posibles
+                      this.categories.get(module).addCommand(command); //busca categoria y lo agrega 
                   }
                 }
             }
@@ -196,6 +196,13 @@ module.export = {
         }
         util.getSend(msg,'No existe el comando, usa el comando'+prefix+'help');
         return false;
+    },
+    //ejecturacomandos
+    executeCmd:async function(msg,args){
+        let cmd = this.getCmd(args[0]);
+        if(cmd.checkArgs(msg, args.slice(1))){
+            await cmd.execute(msg,args.slice(1));
+        }
     }
 
 
