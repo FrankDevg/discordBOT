@@ -183,6 +183,19 @@ module.export = {
 
         }
         return command;
+    },
+    //revision de comando
+    checkCmd: async function(msg,args,prefix){
+        var command = this.getCmd(args[0]);
+        //verifica si el mensaje comieza con el prefix y  si es diferente de null
+        if(msg.content.startsWith(prefix)&& command != null){
+            //validar comando
+            let result =this.checkPerms(msg,command.permLvl);
+            if(result)return true;
+
+        }
+        util.getSend(msg,'No existe el comando, usa el comando'+prefix+'help');
+        return false;
     }
 
 
