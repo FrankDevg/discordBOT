@@ -158,8 +158,7 @@ module.exports = {
                 return true;
             }
         }
-        let perms = msg.members.permissions; 
-        console.log('QUIEN SOY'+perms)
+        let perms = msg.member.permissions;    
         if(perms.has('ADMINISTRATOR')){
             return true;
 
@@ -189,6 +188,7 @@ module.exports = {
     //revision de comando
     checkCmd: async function(msg,args,prefix){
         var command = this.getCmd(args[0]);
+        console.log(command.permLvl)
         //verifica si el mensaje comieza con el prefix y  si es diferente de null
         if(msg.content.startsWith(prefix)&& command != null){
             //validar comando

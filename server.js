@@ -13,8 +13,10 @@ client.on('ready', () => {
 });
 
 client.on('message', async (message) => {
-    console.log(message.channel.name);
+    
     if (message.author.bot) return;
+    console.log(message.member.permissions);
+    console.log(message.member.hasPermission('🔦Mods'));
     let prefix = config.prefix;
     let cmd  = message.content.slice(prefix.length);
     if (cmd != undefined) {
