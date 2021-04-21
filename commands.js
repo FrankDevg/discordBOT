@@ -7,13 +7,13 @@ class Command {
         this.name = commandInfo.name;
         this.args = commandInfo.args;
         this.category = commandInfo.category;
-        this.alises = commandInfo.alises;
+        this.aliases = commandInfo.aliases;
         this.permLvl = commandInfo.permLvl;
         this.priority = commandInfo.priority;
     }
     checkArgs(msg, msgArgs) { //requiere argumentos?  el comando
         var valid = true;
-        if (this, args != undefined) {
+        if (this.args != undefined) {
             if (msgArgs, length == 0 && this.args.find(x => !x.optional) != undefined) {
                 utils.getSend(msg, 'Necesita un argumento');
                 return false;
@@ -103,27 +103,28 @@ class Category {
         this.commands.set(command.name, command.priority);
     }
 }
-module.export = {
+module.exports = {
     Command: Command,
     Argument: Argument,
     Category: Category,
     namesAliases:[],
     categories: new Map(),
-    registerCategories:function(categories){
-        for(category of categories){
-            var category = Category(category)
-            this.categories.set(category.name.category)
+    commands: new Map(),
+    registerCategories: function (categories) {
+        for (category of categories) {
+         var category = new Category(category)
+         this.categories.set(category.name, category)
         }
-    },
+       },
     //retorna una ruta 
-    loadFile:function(){
+    loadFile:function(path){
      return require(path)   
     },
     //registrar comandos 
     registerCommands:function(){
-        var commands = fs.readdirSync(`./commands/`);
-        for(var module  of commands){
-            var files = fs.readdirSync(`/commands/${module}`);
+        var cmds  = fs.readdirSync(`./commands/`);
+        for(var module  of cmds){
+            var files = fs.readdirSync(`./commands/${module}`);
             for(var file of files){
                 if(fs.statSync(`./commands/${module}/${file}`).isFile()){
                     //leemos la ruta de cada comando que este en la carpeta commands
@@ -135,11 +136,11 @@ module.export = {
                       }
                   }
                   //llamamos a la key que tiene el comando
-                  for(var key of keys){
+                  for(var key in keys){
                       var command = new keys[key]();
                       //verificar categorias de que categoria es?
                       if(!this.categories.has(module)){
-                          this.categories([module]);
+                          this.registerCategories([module]);
                       }
                       this.commands.set(command.name,command );
                       this.namesAliases.push(command.name,...command.aliases);// ... obtiene todos los alias posibles
@@ -152,12 +153,13 @@ module.export = {
     //validar permisos que requiere para usar un comando
     checkPerms:function(msg,permLvl){
         //comprobar si el autor del mensaje tiene permisos de usar un comando, devuelve verdadero si tiene permisos
-        for(var i=0;config.superusers.length;i++){
+        for(var i=0;i<config.superusers.length;i++){
             if(msg.author.id === config.superusers[i]){
                 return true;
             }
         }
         let perms = msg.members.permissions; 
+        console.log('QUIEN SOY'+perms)
         if(perms.has('ADMINISTRATOR')){
             return true;
 
@@ -170,12 +172,12 @@ module.export = {
         return false;
     },
     //obtener un comando de la lista de comandos
-    getCmd: function(args){
+    getCmd: function(arg){
         let command = this.commands.get(arg);
         if(!command){
             //avatar,av ,atr,ava
             this.commands.forEach(function(aCmd){
-                if(aCmd.alises.includes(arg)){
+                if(aCmd.aliases.includes(arg)){
                     command = aCmd;
                     return;
                 }
@@ -194,7 +196,7 @@ module.export = {
             if(result)return true;
 
         }
-        util.getSend(msg,'No existe el comando, usa el comando'+prefix+'help');
+        util.getSend(msg,'No existe el comando, usa el comando: '+prefix+'ayuda');
         return false;
     },
     //ejecturacomandos
