@@ -168,6 +168,21 @@ module.export = {
         }
         util.getSend(msg,'No tienes suficientes permisos para usar este comando!')
         return false;
+    },
+    //obtener un comando de la lista de comandos
+    getCmd: function(args){
+        let command = this.commands.get(arg);
+        if(!command){
+            //avatar,av ,atr,ava
+            this.commands.forEach(function(aCmd){
+                if(aCmd.alises.includes(arg)){
+                    command = aCmd;
+                    return;
+                }
+            })
+
+        }
+        return command;
     }
 
 
