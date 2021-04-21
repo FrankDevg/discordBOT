@@ -15,8 +15,6 @@ client.on('ready', () => {
 client.on('message', async (message) => {
     
     if (message.author.bot) return;
-    console.log(message.member.permissions);
-    console.log(message.member.hasPermission('🔦Mods'));
     let prefix = config.prefix;
     let cmd  = message.content.slice(prefix.length);
     if (cmd != undefined) {
@@ -29,8 +27,10 @@ client.on('message', async (message) => {
         commands.executeCmd(message, cmd);
 
     }
-    else
+    else if(message.content.startsWith(""+prefix)){
         util.getSend(message, 'El comando no existe.');
+    }
+        
 
 
     /*

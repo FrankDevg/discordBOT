@@ -188,7 +188,6 @@ module.exports = {
     //revision de comando
     checkCmd: async function(msg,args,prefix){
         var command = this.getCmd(args[0]);
-        console.log(command.permLvl)
         //verifica si el mensaje comieza con el prefix y  si es diferente de null
         if(msg.content.startsWith(prefix)&& command != null){
             //validar comando
@@ -196,7 +195,7 @@ module.exports = {
             if(result)return true;
 
         }
-        util.getSend(msg,'No existe el comando, usa el comando: '+prefix+'ayuda');
+        
         return false;
     },
     //ejecturacomandos
