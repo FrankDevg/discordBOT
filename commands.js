@@ -14,8 +14,8 @@ class Command {
     checkArgs(msg, msgArgs) { //requiere argumentos?  el comando
         var valid = true;
         if (this.args != undefined) {
-            if (msgArgs, length == 0 && this.args.find(x => !x.optional) != undefined) {
-                utils.getSend(msg, 'Necesita un argumento');
+            if (msgArgs.length == 0 && this.args.find(x => !x.optional) != undefined) {
+                util.getSend(msg, 'Debe escribir un mensaje o parametro!');
                 return false;
             }
             let argsPos = 0;
