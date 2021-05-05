@@ -4,16 +4,32 @@ const embed = new MessageEmbed()
 const config = require('./util.js').getConfig()[1];
 const util = require('./util.js');
 const commands = require('./commands.js');
+var mongoose = require('mongoose');
 require('dotenv').config();
 var url = new String();
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+ }).then(()=>{
+     console.log(".....connection to database elbot established.....");
+    
+ }).catch(err=>{
+     console.log(`db error ${err.message}`);
+     process.exit(-1)
+ });
 client.on('ready', () => {
     console.log(`Bot is ready! as ${client.user.tag}`);
+    
     commands.registerCategories(config.categories);
     commands.registerCommands();
 });
 
 client.on('message', async (message) => {
     
+
     if (message.author.bot) return;
     let prefix = config.prefix;
     let cmd  = message.content.slice(prefix.length);

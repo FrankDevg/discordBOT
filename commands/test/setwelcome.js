@@ -1,6 +1,14 @@
 
-const {Command} = require('../../commands.js')
-const welcomeSchema = require('../../models/welcome-schema')
+const {Command} = require('../../commands.js');
+const welcomeSchema = require('../../models/welcome-schema');
+const chache = new Map();
+const loadData = async()=>{
+    const results = await welcomeSchema.find();
+    for (const result of results){
+        cache.set(result._id,result.channelId);
+    }
+}
+//modulo ingreso en la base de datos mongo db
 module.exports = class SetWelcomeCommand extends Command{
     constructor(){
         super({
@@ -12,41 +20,38 @@ module.exports = class SetWelcomeCommand extends Command{
 
         })
     }
-     execute(msg){
+    
+    async  execute(msg){
+       console.log(msg)
+       await welcomeSchema.findOneAndUpdate( 
+            {
+               _id:msg.guild.id
+           },
+           {
+               _id:msg.guild.id,
+               channelId:msg.channel.id
+           },
+           {
+               upsert: false,
+               
+              
+           }, (err,channelUpdated)=>{
+               if(err){
        
-         ok(msg);
-        
+                   console.log(err);
+                   msg.channel.send('Error al Actualizar el canal');
+               }else{
+                       cache.set(msg.guild.id,msg.channel.id);
+                       msg.channel.send('Welcome channel set!');
+                   
+               }
+           });
     }
     
 
 
 }
- async function ok(msg){
- 
-    console.log(msg.id,msg.channel.id);
-    await welcomeSchema.findOneAndUpdate( 
-     {
-        _id:msg.id
-    },
-    {
-        _id:msg.id,
-        channelId:msg.channel.id
-    },
-    {
-        upsert: true,
-        rawResult: true   
-       
-    },(err,channelUpdated)=>{
-        if(err){
-            console.log(err);
-            msg.channel.send('Error al Actualizar el canal');
-        }else{
-            if(!channelUpdated){
-                msg.channel.send('No se ha podido actualizar el canal');
-            }else{
-                msg.channel.send('Welcome channel set!');
-            }
-        }
-    });
-    
+module.exportsgetChannelId=(guildId)=>{
+    return cache.get(guildId);
+
 }
