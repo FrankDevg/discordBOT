@@ -1,6 +1,6 @@
 //estructura con argumentos 
 const commands = require('../../commands.js')
-const { Command } = require('../../commands.js')
+const lang = require('../../util.js').getLanguage();
 //heredo la estructura de la clase commands y le pasamos los valores
 module.exports = class SayCommand extends commands.Command {
     constructor() {
