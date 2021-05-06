@@ -38,7 +38,7 @@ client.on('message', async (message) => {
 
     }
    
-    let result = await commands.checkCmd(message, cmd, prefix);
+    let result = await commands.checkValidCmd(message, cmd, prefix);
     if (result){
         commands.executeCmd(message, cmd);
 
