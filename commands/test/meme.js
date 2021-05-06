@@ -26,7 +26,7 @@ module.exports = class memeCommand extends Command{
                     .addField('brutal', 'comando: !meme9')
                     .addField('Dorime', 'comando: !meme10')
         )
-         memeService.saveMeme(msg);
+         memeService.getMeme(msg,1);
     }
            
     
