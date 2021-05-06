@@ -10,7 +10,7 @@ module.exports={
     },
     //internacionalizacion
     getLanguage:function(){
-        let larg=requires('./languages/ES-es.json');
+        let lang= require('./languages/EN-en.json');
         return lang;
     }
 

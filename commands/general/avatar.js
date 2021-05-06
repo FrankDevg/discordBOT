@@ -1,7 +1,8 @@
 //estructura con argumentos 
 const { MessageEmbed } = require('discord.js');
-const commands = require('../../commands.js')
-const { Command } = require('../../commands.js')
+const commands = require('../../commands.js');
+const lang = require('../../util.js').getLanguage();
+
 //heredo la estructura de la clase commands y le pasamos los valores
 module.exports = class AvatarCommand extends commands.Command {
     constructor() {
@@ -11,14 +12,14 @@ module.exports = class AvatarCommand extends commands.Command {
             args:[
                 new commands.Argument({
                     optional: true,
-                    missingError:'Necesita enviar un mensaje',
-                    invalidError: 'El argumento no es valido',
+                    missingError:lang.error.noArgs.arg,
+                    invalidError: lang.error.incoArgs.text,
 
                 })
             ],
             category: 'test',
             priority: 9,
-            permLvl: 0
+            permLvl: 3
 
 
         })

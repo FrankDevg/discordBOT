@@ -1,6 +1,7 @@
 //estructura con argumentos 
 const commands = require('../../commands.js')
-const { Command } = require('../../commands.js')
+const lang = require('../../util.js').getLanguage();
+
 //heredo la estructura de la clase commands y le pasamos los valores
 module.exports = class IdCommand extends commands.Command {
     constructor() {
@@ -11,8 +12,8 @@ module.exports = class IdCommand extends commands.Command {
                 new commands.Argument({
                     optional: false,
                     type:'mention',
-                    missingError:'Necesita mencionar a un usuario',
-                    invalidError: 'El argumento no es valido',
+                    missingError:lang.error.noArgs.mention,
+                    invalidError:lang.error.incoArgs.text,
 
                 })
             ],

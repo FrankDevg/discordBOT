@@ -10,12 +10,12 @@
         "incoArgs":{
             "text":"Argumento incorrecto.",
             "cmd":"Comando incorrecto."
-            
+        
         },
         "noFound":{
             "cmd":"Comando no encontrado.",
             "channel":"Canal no encontrado."
         },
-        "noPerms":"No tienes suficientes permisos para usar este comando"
+        "noPerms":"No tienes suficientes permisos para usar este comando."
     }
 }

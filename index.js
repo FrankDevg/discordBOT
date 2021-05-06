@@ -44,7 +44,7 @@ client.on('message', async (message) => {
 
     }
     else if(message.content.startsWith(""+prefix)){
-        util.getSend(message, 'El comando no existe.');
+       // util.getSend(message, 'El comando no existe.');
     }
         
 

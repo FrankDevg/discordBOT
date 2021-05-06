@@ -1,10 +1,12 @@
 const {Command} = require('../../commands.js')
 const {  MessageEmbed } = require('discord.js');
+const memeService = require('../../services/meme-service');
+
 //heredo la estructura de la clase commands y le pasamos los valores
 module.exports = class memeCommand extends Command{
     constructor(){
         super({
-            name:'memes',
+            name:'meme',
             aliases: ['mem','m'],
             priority:9,
             permLvl:0
@@ -24,6 +26,7 @@ module.exports = class memeCommand extends Command{
                     .addField('brutal', 'comando: !meme9')
                     .addField('Dorime', 'comando: !meme10')
         )
+         memeService.saveMeme(msg);
     }
            
     

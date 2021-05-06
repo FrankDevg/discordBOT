@@ -1,6 +1,8 @@
 const fs = require('fs');
 const util = require('./util.js');
-const config = require('./config.js')
+const config = require('./config.js');
+const lang = require('./util.js').getLanguage();
+
 //const 
 
 class Command {
@@ -16,7 +18,7 @@ class Command {
   var valid = true
   if (this.args != undefined) {
    if (msgArgs.length == 0 && this.args.find(x => !x.optional) != undefined) {
-    util.getSend(msg, 'Requiere un argumento');
+    util.getSend(msg, lang.error.noArgs.arg);
     return false;
    }
    let argsPos = 0
@@ -173,7 +175,7 @@ module.exports = {
    return true;
   }
 
-  util.getSend(msg, 'No tienes permisos suficientes para usar este comando.');
+  util.getSend(msg, lang.error.noPerms);
   return false;
  },
  getCmd: function (arg) {

@@ -1,6 +1,6 @@
 
 const {Command} = require('../../commands.js');
-const welcomeSchema = require('../../models/welcome-schema');
+const welcomeSchema = require('../../services/models/welcome-schema');
 const chache = new Map();
 const loadData = async()=>{
     const results = await welcomeSchema.find();
@@ -41,7 +41,6 @@ module.exports = class SetWelcomeCommand extends Command{
                    console.log(err);
                    msg.channel.send('Error al Actualizar el canal');
                }else{
-                       cache.set(msg.guild.id,msg.channel.id);
                        msg.channel.send('Welcome channel set!');
                    
                }
