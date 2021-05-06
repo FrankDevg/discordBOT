@@ -7,6 +7,11 @@ module.exports={
     getSend: function(msg,text){
         console.log(text)
         msg.channel.send(text)
+    },
+    //internacionalizacion
+    getLanguage:function(){
+        let larg=requires('./languages/ES-es.json');
+        return lang;
     }
 
 }
