@@ -23,7 +23,6 @@ module.exports = class SayCommand extends commands.Command {
         })
     }
     execute(msg,args) {
-        console.log('/////' +args);
         msg.channel.send(args.join(' '));
     }
 

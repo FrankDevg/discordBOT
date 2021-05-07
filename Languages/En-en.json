@@ -14,7 +14,8 @@
         },
         "noFound":{
             "cmd":"Command not found.",
-            "channel":"Channel not found."
+            "channel":"Channel not found.",
+            "meme":"Meme not found."
         },
         "noPerms":"You do not have sufficient permissions to use this command."
     }
