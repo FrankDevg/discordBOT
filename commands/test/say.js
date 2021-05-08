@@ -17,7 +17,7 @@ module.exports = class SayCommand extends commands.Command {
             ],
             category: 'test',
             priority: 9,
-            permLvl: 0
+            permLvl:2
 
 
         })

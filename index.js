@@ -5,6 +5,7 @@ const config = require('./util.js').getConfig()[1];
 const util = require('./util.js');
 const commands = require('./commands.js');
 var mongoose = require('mongoose');
+
 require('dotenv').config();
 var url = new String();
 
@@ -43,8 +44,8 @@ client.on('message', async (message) => {
         commands.executeCmd(message, cmd);
 
     }
-    else if(message.content.startsWith(""+prefix)){
-       // util.getSend(message, 'El comando no existe.');
+    else if(message.content.startsWith(""+prefix) && !result ){
+       util.getSend(message, 'El comando no existe.');
     }
         
 
