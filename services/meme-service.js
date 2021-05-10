@@ -7,12 +7,12 @@ module.exports = {
     saveMeme: async function (msg) {
         await memeSchema.findOneAndUpdate(
             {
-                _id: 10
+                _id: 52
             },
             {
-                _id: 10,
-                keywords: "Dorime",
-                memeURL: "831187746986000424/831193209329680434/dorime11576397150.png"
+                _id: 52,
+                keywords: "Soy un chiste",
+                memeURL: "831187746986000424/841340158375624724/A6B.png?width=871&height=670"
             },
             {
                 upsert: true,
@@ -29,25 +29,22 @@ module.exports = {
                 }
             });
     },
-    getMeme: async function (msg, id) {
-        var totalMemes;
-        if (id == 'random' || id == 'ran') {
-            //total de documentos memes!
-            await memeSchema.countDocuments({}, function (err, count) {
-                totalMemes = count;
-                id = Math.floor(Math.random() * totalMemes) + 1;
-                console.log(id);
-            });
-
-
-        }
-      
-        await memeSchema.findOne({
+    countMeme: async function () {
+        
+        return id;
+    },
+    getMeme: async function (msg) {
+     
+        let id =await Math.floor(Math.random() * 52) + 1;
+       // id=52;
+     
+         memeSchema.findOne({
             _id: id
         }, function (err, result) {
             if (err) throw err;
             let avatarURL = (msg.author.avatarURL()) ? msg.author.avatarURL() : 'https://th.bing.com/th/id/OIP.QGjlnckx4xMewe5flHMPpgHaFC?pid=ImgDet&rs=1';
             if (result !== null) {
+                console.log(result.memeURL);
                 msg.channel.send(new MessageEmbed().setColor(0x02b9ba).setAuthor("" + msg.author.username, "" + avatarURL).setImage('https://cdn.discordapp.com/attachments/' + result.memeURL));
 
             } else {

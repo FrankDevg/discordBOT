@@ -11,21 +11,15 @@ module.exports = class MemeCommand extends commands.Command {
         super({
             name:'meme',
             aliases: ['mem','m'],
-            args:[
-                new commands.Argument({
-                    optional: false,
-                    missingError:lang.error.noArgs.arg,
-                    invalidError:lang.error.incoArgs.text,
-
-                })
-            ],
+            
             priority:9,
             permLvl:0
 
         })
     }
-    execute(msg,args) {
-        memeService.getMeme(msg,args);
+    execute(msg) {
+        memeService.getMeme(msg);
+        //memeService.saveMeme(msg)
     }
     
            
