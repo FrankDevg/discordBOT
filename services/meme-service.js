@@ -43,6 +43,7 @@ module.exports = {
         }, function (err, result) {
             if (err) throw err;
             let avatarURL = (msg.author.avatarURL()) ? msg.author.avatarURL() : 'https://th.bing.com/th/id/OIP.QGjlnckx4xMewe5flHMPpgHaFC?pid=ImgDet&rs=1';
+            console.log(msg);
             if (result !== null) {
                 console.log(result.memeURL);
                 msg.channel.send(new MessageEmbed().setColor(0x02b9ba).setAuthor("" + msg.author.username, "" + avatarURL).setImage('https://cdn.discordapp.com/attachments/' + result.memeURL));

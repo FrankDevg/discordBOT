@@ -84,6 +84,7 @@ class Argument {
         break;
       case 'channel':
         // <#1586128918181818>
+        
         let channel = msgArg.match(/<#(.*?)>/);
         if(channel == null || !msg.guild.channels.cache.has(channel[1])){
           valid = false;
@@ -129,6 +130,7 @@ module.exports = {
     var cmds = fs.readdirSync(`./commands/`);
     for(var module of cmds){
       var files = fs.readdirSync(`./commands/${module}`);
+
       for(var file of files){
         if(fs.statSync(`./commands/${module}/${file}`).isFile()){
           var keys = this.loadFile(`./commands/${module}/${file}`)

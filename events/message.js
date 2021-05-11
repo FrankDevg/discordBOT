@@ -7,7 +7,7 @@ module.exports = async(client,message)=>{
     if (message.author.bot) return;
     let cmd = message.content.slice(prefix.length);
     if (cmd != undefined) {
-        cmd = String(cmd).split(' ');
+        cmd = cmd.split(' ');
 
     }
 
@@ -15,9 +15,6 @@ module.exports = async(client,message)=>{
     if (result) {
         commands.executeCmd(message, cmd);
 
-    }
-    else if (message.content.startsWith("" + prefix) && !result) {
-        util.getSend(message, 'El comando no existe.');
     }
 
 }

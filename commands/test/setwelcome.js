@@ -1,6 +1,9 @@
 
-const {Command} = require('../../commands.js');
-const welcomeSchema = require('../../services/models/welcome-schema');
+const commands = require('../../commands.js')
+const lang = require('../../util.js').getLanguage();
+const welcomeService = require('../../services/welcome-service');
+
+/*
 const cache = new Map();
 const loadData = async()=>{
     const results = await welcomeSchema.find();
@@ -16,35 +19,12 @@ module.exports = class SetWelcomeCommand extends Command{
             aliases: ['welcome','wel'],
             category: 'test',
             priority:9,
-            permLvl:3
-
+            permLvl:0
         })
     }
     
     async  execute(msg){
-       await welcomeSchema.findOneAndUpdate( 
-            {
-               _id:msg.guild.id
-           },
-           {
-               _id:msg.guild.id,
-               channelId:msg.channel.id
-           },
-           {
-               upsert: false,
-               
-              
-           }, (err,channelUpdated)=>{
-               if(err){
        
-                   console.log(err);
-                   msg.channel.send('Error al Actualizar el canal');
-               }else{
-                        cache.set(msg.guild.id,msg.channel.id)
-                       msg.channel.send('Welcome channel set!');
-                   
-               }
-           });
     }
     
 
@@ -52,5 +32,33 @@ module.exports = class SetWelcomeCommand extends Command{
 }
 module.exports=getChannelId=(guildId)=>{
     return cache.get(guildId);
+
+}
+*/
+module.exports = class SetWelcomeCommand extends commands.Command {
+    constructor() {
+        super({
+            name: 'setwelcome',
+            aliases: [],
+            args:[
+                new commands.Argument({
+                    optional: false,
+                    type:'channel',
+                    missingError:lang.error.noArgs.arg,
+                    invalidError:lang.error.incoArgs.text,
+
+                })
+            ],
+            category: 'test',
+            priority: 9,
+            permLvl:2
+
+
+        })
+    }
+    execute(msg,args) {
+        welcomeService.setWelcome(msg,args);
+    }
+
 
 }
