@@ -7,12 +7,12 @@ module.exports = {
     saveMeme: async function (msg) {
         await memeSchema.findOneAndUpdate(
             {
-                _id: 52
+                _id: 64 
             },
             {
-                _id: 52,
-                keywords: "Soy un chiste",
-                memeURL: "831187746986000424/841340158375624724/A6B.png?width=871&height=670"
+                _id: 64,
+                keywords: "No seas mamon",
+                memeURL: "831187746986000424/841401478454444122/unknown.png"
             },
             {
                 upsert: true,
@@ -35,8 +35,8 @@ module.exports = {
     },
     getMeme: async function (msg) {
      
-        let id =await Math.floor(Math.random() * 52) + 1;
-       // id=52;
+        let id =await Math.floor(Math.random() * 64) + 1;
+        //id=64;
      
          memeSchema.findOne({
             _id: id

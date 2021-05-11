@@ -19,7 +19,7 @@ module.exports = class MemeCommand extends commands.Command {
     }
     execute(msg) {
         memeService.getMeme(msg);
-        //memeService.saveMeme(msg)
+       // memeService.saveMeme(msg)
     }
     
            
