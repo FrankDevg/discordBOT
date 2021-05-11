@@ -1,4 +1,4 @@
-const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
+const { Client } = require('discord.js');
 const client = new Client();
 const config = require('./util.js').getConfig()[1];
 const util = require('./util.js');
@@ -8,6 +8,21 @@ const fs = require('fs');
 
 require('dotenv').config();
 //coneccion base de datos
+
+// Create an event listener for new guild members
+
+for (let file of fs.readdirSync('./events/')) {
+    if (file.endsWith('.js')) {
+        let fileName = file.substring(0, file.length - 3);
+        let fileContents = require(`./events/${file}`);
+        client.on(fileName, fileContents.bind(null, client))
+        delete require.cache[require.resolve(`./events/${file}`)]
+    }
+
+}
+
+  
+
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -20,18 +35,6 @@ mongoose.connect(process.env.MONGO_URI, {
     console.log(`db error ${err.message}`);
     process.exit(-1)
 });
-
-for (let file of fs.readdirSync('./events/')) {
-    if (file.endsWith('.js')) {
-        let fileName = file.substring(0, file.length - 3);
-        let fileContents = require(`./events/${file}`);
-        client.on(fileName, fileContents.bind(null, client))
-        delete require.cache[require.resolve(`./events/${file}`)]
-    }
-
-}
-
-
 
 client.login(process.env.CLIENT_TOKEN);
 

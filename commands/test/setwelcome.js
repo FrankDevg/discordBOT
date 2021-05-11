@@ -1,7 +1,7 @@
 
 const {Command} = require('../../commands.js');
 const welcomeSchema = require('../../services/models/welcome-schema');
-const chache = new Map();
+const cache = new Map();
 const loadData = async()=>{
     const results = await welcomeSchema.find();
     for (const result of results){
@@ -22,7 +22,6 @@ module.exports = class SetWelcomeCommand extends Command{
     }
     
     async  execute(msg){
-       console.log(msg)
        await welcomeSchema.findOneAndUpdate( 
             {
                _id:msg.guild.id
@@ -41,6 +40,7 @@ module.exports = class SetWelcomeCommand extends Command{
                    console.log(err);
                    msg.channel.send('Error al Actualizar el canal');
                }else{
+                        cache.set(msg.guild.id,msg.channel.id)
                        msg.channel.send('Welcome channel set!');
                    
                }
@@ -50,7 +50,7 @@ module.exports = class SetWelcomeCommand extends Command{
 
 
 }
-module.exportsgetChannelId=(guildId)=>{
+module.exports=getChannelId=(guildId)=>{
     return cache.get(guildId);
 
 }
