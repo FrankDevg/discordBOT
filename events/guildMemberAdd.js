@@ -21,22 +21,33 @@ module.exports = async (client, member) => {
     }));
     let x = 0;
     let y = 0;
-    ctx.drawImage(background, x, y);
-    const pfp = await Canvas.loadImage(
+    ctx.drawImage(background, x, y,canvas.width,canvas.height);
+    ctx.strokeStyle ='#C0C0C0';
+    ctx.strokeRect(0,0,canvas.width-5,canvas.height-5);
+
+    ctx.font = '32px Impact';
+    ctx.fillStyle='#F8F8F8';
+    ctx.fillText('Welcome to the paradise',canvas.width/2.5,canvas.height/3.5);
+        ctx.font = '45px Impact';
+        ctx.fillStyle='#F8F8F8';
+        ctx.fillText(`${member.user.tag}`,canvas.width/2.5,canvas.height/1.9);
+            ctx.font = '25px Impact';
+            ctx.fillStyle='#F8F8F8';
+            ctx.fillText(`Member# ${member.guild.memberCount }`,canvas.width/1.35,canvas.height/1.1);
+console.log()
+    ctx.beginPath();
+    ctx.arc(125,125,100,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.clip();
+    const avatar = await Canvas.loadImage(
         member.user.displayAvatarURL({
             format: 'png'
         })
     )
-    // centro de la imagen !!!!! Mover valores segun desee!
-    x = canvas.width / 2 - pfp.width / 2;
-    y = 25;
-    ctx.drawImage(pfp,x,y);
-    ctx.fillStyle='#ffffff';
-    ctx.font='35px sans-serif';
-    let text = `Welcome ${member.user.tag}`
-    x = canvas.width/2-ctx.measureText(text).width/2;
-    ctx.fillText(text,x,60+pfp.height);
+
+    ctx.drawImage(avatar,25,25,200,200);
     const attachment = new MessageAttachment(canvas.toBuffer());
     channel.send('', attachment);
+  
     //`Welcome to the server mensaje enviado desde modulo eventos con bdd, ${member}`
 }

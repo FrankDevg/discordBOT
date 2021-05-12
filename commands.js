@@ -68,7 +68,6 @@ class Argument {
   }
   checkArg(msg, msgArg){
     var valid = true;
-    console.log();
     switch(this.type) {
       case 'mention': 
         //<@8181518181818181>

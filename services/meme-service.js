@@ -7,16 +7,16 @@ module.exports = {
     saveMeme: async function (msg) {
         await memeSchema.findOneAndUpdate(
             {
-                _id: 64 
+                _id: 75 
             },
             {
-                _id: 64,
-                keywords: "No seas mamon",
-                memeURL: "831187746986000424/841401478454444122/unknown.png"
+                _id: 75,
+                keywords: "yo viendo todo el drama",
+                memeURL: "831187746986000424/841921550411104276/unknown.png"
             },
             {
                 upsert: true,
-
+// 74 75
 
             }, (err, memeUpdated) => {
                 if (err) {
@@ -35,15 +35,14 @@ module.exports = {
     },
     getMeme: async function (msg) {
      
-        let id =await Math.floor(Math.random() * 64) + 1;
-        //id=64;
+        let id =await Math.floor(Math.random() * 88) + 1;
+        //id=88;
      
          memeSchema.findOne({
             _id: id
         }, function (err, result) {
             if (err) throw err;
             let avatarURL = (msg.author.avatarURL()) ? msg.author.avatarURL() : 'https://th.bing.com/th/id/OIP.QGjlnckx4xMewe5flHMPpgHaFC?pid=ImgDet&rs=1';
-            console.log(msg);
             if (result !== null) {
                 console.log(result.memeURL);
                 msg.channel.send(new MessageEmbed().setColor(0x02b9ba).setAuthor("" + msg.author.username, "" + avatarURL).setImage('https://cdn.discordapp.com/attachments/' + result.memeURL));
