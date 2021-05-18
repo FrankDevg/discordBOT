@@ -7,12 +7,12 @@ module.exports = {
     saveMeme: async function (msg) {
         await memeSchema.findOneAndUpdate(
             {
-                _id: 75 
+                _id: 132 
             },
             {
-                _id: 75,
-                keywords: "yo viendo todo el drama",
-                memeURL: "831187746986000424/841921550411104276/unknown.png"
+                _id: 132,
+                keywords: "Loser",
+                memeURL: "831187746986000424/844077571078357002/calamardo-borrando-perdedorloser-de-la-puerta01613014345.png"
             },
             {
                 upsert: true,
@@ -35,8 +35,8 @@ module.exports = {
     },
     getMeme: async function (msg) {
      
-        let id =await Math.floor(Math.random() * 88) + 1;
-        //id=88;
+        let id =await Math.floor(Math.random() * 132) + 1;
+        //id=132;
      
          memeSchema.findOne({
             _id: id
