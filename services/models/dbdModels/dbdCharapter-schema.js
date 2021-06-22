@@ -11,7 +11,7 @@ const DbdCharapterSchema = new mongoose.Schema({
     role:String,
     nationality:String,
     perks:[{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"DbdPerkSchema"
     }]
 
