@@ -49,12 +49,9 @@ module.exports = {
 
             } else {
                 msg.channel.send(new MessageEmbed().setColor("RED").setDescription(lang.error.noFound.meme));
-
+//meterlos en el modulo ?
             }
         });
 
     }
 }
-
-
-

@@ -2,7 +2,7 @@
 const { Client, MessageEmbed, MessageAttachment } = require('discord.js');
 const lang = require('../util.js').getLanguage();
 
-const welcomeSchema = require('../services/models/welcome-schema');
+const welcomeSchema = require('./models/welcome-schema');
 module.exports = {
     setWelcome: async function (msg, args) {
         let channelId = args[0];      //.match(/<#(.*?)>/).slice(1);
