@@ -5,11 +5,12 @@ const DbdCharapterSchema = new mongoose.Schema({
     _id:String,
     name:String,
     characterImgUrl:String,
-    typeCharacter:String,
-    descriptionCharacter:String,
+    type:String,
+    description:String,
     gender:String,
     role:String,
     nationality:String,
+    difficulty:String,
     perks:[{
         type:String,
         ref:"DbdPerkSchema"
